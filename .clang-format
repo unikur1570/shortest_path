@@ -1,0 +1,38 @@
+BasedOnStyle: Google
+
+# Отступы и выравнивание.
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+BreakBeforeBraces: Attach
+
+# Пробелы вокруг операторов и запятых.
+SpaceBeforeParens: ControlStatements
+SpaceBeforeAssignmentOperators: true
+SpacesInCStyleCastParentheses: true
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+
+# Параметры переноса строк.
+ColumnLimit: 120
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+
+# Параметры сортировки подключаемых файлов.
+IncludeBlocks: Preserve
+IncludeCategories:
+  - Regex: '^<.*'
+    Priority: 1
+  - Regex: '^".*'
+    Priority: 2
+
+# Параметры форматирования комментариев.
+ReflowComments: true
+
+# Оставлять или удалять пустые строки в коде.
+KeepEmptyLinesAtTheStartOfBlocks: false
+
+# Параметры сортировки объявлений внутри классов.
+SortIncludes: true
+SortUsingDeclarations: true
