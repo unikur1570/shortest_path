@@ -8,7 +8,7 @@
 #include "graph.h"
 
 class DijkstraPathFinder final : public PathFinder {
-public:
+   public:
     virtual std::string Name() override { return "Dijkstra"; }
 
     virtual AlgoOutput findShortestPath(const Graph& graph, int from, int to, bool debug) override {
@@ -17,7 +17,8 @@ public:
         }
 
         const int num_vertices = graph.Size();
-        std::priority_queue < std::pair <WeightType, int> , std::vector<std::pair<WeightType, int>> , std::greater<> > vertices_queue;
+        std::priority_queue<std::pair<WeightType, int>, std::vector<std::pair<WeightType, int>>, std::greater<>>
+            vertices_queue;
         std::vector<WeightType> min_distance(num_vertices, std::numeric_limits<WeightType>::infinity());
         std::vector<int> previous(num_vertices, -1);
         std::vector<bool> used(num_vertices, false);
@@ -40,7 +41,7 @@ public:
                 break;
             }
 
-            for (const auto &edge : graph.adjacency_list[current_vertex]) {
+            for (const auto& edge : graph.adjacency_list[current_vertex]) {
                 int neighbor = edge.node;
                 WeightType weight = edge.weight;
                 WeightType distance_through_vertex = current_distance + weight;
@@ -56,16 +57,16 @@ public:
         WeightType minimal_length = min_distance[to];
         PathFinder::AlgoOutput output{.minimal_length = minimal_length};
 
-        if(debug) {
+        if (debug) {
             output.path = reconstructPath(from, to, previous);
-            
-            for(int i = 0; i < num_vertices; ++i) {
-                if(used[i]) {
+
+            for (int i = 0; i < num_vertices; ++i) {
+                if (used[i]) {
                     output.used.push_back(i);
                 }
             }
         }
-        
+
         return output;
     }
 };

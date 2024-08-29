@@ -1,12 +1,11 @@
 #pragma once
 
-#include <exception>
-#include <iostream>
-#include <fstream>
-#include <stdexcept>
-#include <vector>
-#include <utility>
 #include <cstdio>
+#include <fstream>
+#include <iostream>
+#include <stdexcept>
+#include <utility>
+#include <vector>
 
 struct Graph {
     struct Edge {
@@ -23,8 +22,8 @@ struct Graph {
 
     using Neighbours = std::vector<Edge>;
 
-    std::vector <Neighbours> adjacency_list;
-    std::vector <Cords> coordinates;
+    std::vector<Neighbours> adjacency_list;
+    std::vector<Cords> coordinates;
 
     Graph(const std::string& filecords, const std::string& filegraph) {
         ReadCords(filecords);
@@ -33,8 +32,7 @@ struct Graph {
 
     Graph() = default;
 
-    Graph(const Graph& other) : adjacency_list(other.adjacency_list), coordinates(other.coordinates) {
-    }
+    Graph(const Graph& other) : adjacency_list(other.adjacency_list), coordinates(other.coordinates) {}
 
     Graph operator=(Graph&& other) {
         adjacency_list = std::move(other.adjacency_list);
@@ -60,42 +58,37 @@ struct Graph {
 
     void ReadCords(const std::string& filecords) {
         std::ifstream cords_file(filecords);
-        if (!cords_file.is_open()) { 
+        if (!cords_file.is_open()) {
             throw std::runtime_error("Can not open the cords file");
         }
         int node;
         double lat, lon;
-        while(cords_file >> node >> lat >> lon) {
+        while (cords_file >> node >> lat >> lon) {
             coordinates.emplace_back(Cords{lat, lon});
         }
     }
-    
+
     void ReadFromFile(const std::string& filegraph) {
         std::ifstream graph_file(filegraph);
-        if (!graph_file.is_open()) { 
+        if (!graph_file.is_open()) {
             throw std::runtime_error("Can not open the graph file");
-        } 
+        }
 
         size_t n;
         graph_file >> n;
         adjacency_list.resize(n);
-        
+
         int node1, node2;
         double weight;
-        while(graph_file >> node1 >> node2 >> weight) {
-
+        while (graph_file >> node1 >> node2 >> weight) {
             double lat1 = coordinates[node1].lat;
             double lon1 = coordinates[node1].lon;
             double lat2 = coordinates[node2].lat;
             double lon2 = coordinates[node2].lon;
 
-            
             AddEdge(node1, node2, weight, lat1, lon1, lat2, lon2);
         }
     }
 
-    const size_t Size() const {
-        return adjacency_list.size();
-    }
-
+    const size_t Size() const { return adjacency_list.size(); }
 };

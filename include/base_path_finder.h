@@ -7,17 +7,14 @@
 using WeightType = double;
 using Path = std::vector<int>;
 
-
 class PathFinder {
-public:
-
+   public:
     struct AlgoOutput {
-        double minimal_length; // always
-        Path path; // if debug
-        Path used; // if debug
+        double minimal_length;  // always
+        Path path;              // if debug
+        Path used;              // if debug
         double time_ms;
     };
-    
 
     virtual ~PathFinder() = default;
 
@@ -37,8 +34,8 @@ public:
 
     virtual std::string Name() = 0;
 
-protected:
-    Path reconstructPath(int from, int to, const std::vector<int> &previous) {
+   protected:
+    Path reconstructPath(int from, int to, const std::vector<int>& previous) {
         Path path;
         for (int at = to; at != -1; at = previous[at]) {
             path.push_back(at);
